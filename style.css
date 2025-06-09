@@ -1,0 +1,322 @@
+body {
+
+
+    margin: 0;
+
+
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+
+    background-color: #f0f2f5;
+
+
+}
+
+
+
+
+
+.topnav {
+
+
+    background-color: #1a1a2e;
+
+
+    color: #fff;
+
+
+    padding: 15px 30px;
+
+
+    font-size: 22px;
+
+
+    font-weight: bold;
+
+
+    display: flex;
+
+
+    align-items: center;
+
+
+}
+
+
+
+
+
+.menu {
+
+
+    display: flex;
+
+
+    background-color: #16213e;
+
+
+    padding: 10px 30px;
+
+
+}
+
+
+
+
+
+.menu div {
+
+
+    margin-right: 20px;
+
+
+    color: #fff;
+
+
+    cursor: pointer;
+
+
+    padding: 8px 15px;
+
+
+    border-radius: 5px;
+
+
+    transition: background 0.3s;
+
+
+}
+
+
+
+
+
+.menu div:hover, .menu div.active {
+
+
+    background-color: #0f3460;
+
+
+}
+
+
+
+
+
+.container {
+
+
+    display: flex;
+
+
+    padding: 20px;
+
+}
+
+
+
+
+
+.sidebar {
+
+
+    width: 220px;
+
+
+    background: #fff;
+
+
+    border-radius: 8px;
+
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+
+    padding: 20px;
+
+
+    margin-right: 20px;
+
+
+}
+
+
+
+
+
+.sidebar div {
+
+
+    margin-bottom: 15px;
+
+
+    cursor: pointer;
+
+
+}
+
+
+
+
+
+.sidebar div:hover {
+
+
+    font-weight: bold;
+
+
+}
+
+
+
+
+
+.content {
+
+    flex: 1 1 0;
+
+    background: #fff;
+
+
+    border-radius: 8px;
+
+
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+
+    padding: 20px;
+
+
+}
+
+
+
+
+
+.section {
+
+
+    margin-bottom: 30px;
+
+
+}
+
+
+
+
+
+.section-header {
+
+
+    font-size: 18px;
+
+
+    margin-bottom: 10px;
+
+
+    color: #333;
+
+
+    border-bottom: 2px solid #eee;
+
+
+    padding-bottom: 5px;
+
+    text-align: center;
+
+
+}
+
+
+
+
+
+table {
+
+
+    width: 100%;
+
+
+    border-collapse: collapse;
+
+
+}
+
+
+
+
+
+td {
+
+
+    padding: 8px 12px;
+
+
+    border-bottom: 1px solid #eee;
+
+
+}
+
+
+
+
+
+td.label {
+
+
+    font-weight: bold;
+
+
+    color: #555;
+
+
+}
+
+@media (max-width: 1000px) {
+    .container{
+        flex-direction:  column;
+        row-gap: 20px;
+    }
+
+    .content{
+        flex-grow: 0;
+    }
+
+    .sidebar{
+        width: 100% !important;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 0;
+        padding: 10px 0;
+    }
+
+    .sidebar div{
+        margin: 0;
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar{
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+        row-gap: 10px;
+    }
+
+    .sidebar div{
+        text-align: center;
+    }
+
+    .content{
+        padding: 2px;
+    }
+
+    .content table{
+        font-size: 10px;
+    }
+}
+
+.humburger-menu{
+    width: 30px;
+    cursor: pointer;
+}
