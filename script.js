@@ -1,148 +1,111 @@
-const pages = {
-
-
-    status: `
-
-
-      <div class="section">
-
-
-        <div class="section-header">Système</div>
-
-
-        <table>
-
-
-          <tr><td class="label">Alias</td><td>DSL Router VN020-F3W(TT)</td></tr>
-
-
-          <tr><td class="label">Durée d'activité</td><td>4j 21h 19m</td></tr>
-
-
-          <tr><td class="label">Date / heure</td><td>Sam. Juin 8 12:58:34 2025</td></tr>
-
-
-          <tr><td class="label">Firmware</td><td>V1.0.2_2021</td></tr>
-
-
-          <tr><td class="label">Date Firmware</td><td>28 Oct 2021</td></tr>
-
-
-          <tr><td class="label">Numéro de Série</td><td>31931003002699</td></tr>
-
-
-        </table>
-
-
-      </div>
-
-
-      <div class="section">
-
-
-        <div class="section-header">DSL</div>
-
-
-        <table>
-
-
-          <tr><td class="label">Modulation Active</td><td>ADSL2 AnnexA</td></tr>
-
-
-          <tr><td class="label">Débit montant</td><td>891 kbps</td></tr>
-
-
-          <tr><td class="label">Débit descendant</td><td>6696 kbps</td></tr>
-
-
-          <tr><td class="label">Max montant</td><td>1065 kbps</td></tr>
-
-
-          <tr><td class="label">Max descendant</td><td>9844 kbps</td></tr>
-
-
-          <tr><td class="label">Temps Sync</td><td>2j 4:45:5</td></tr>
-
-
-        </table>
-
-
-      </div>
-
-
-    `,
-
-
-    config: '<h2>Configuration</h2><p>Paramètres de configuration à venir...</p>',
-
-
-    advanced: '<h2>Avancé</h2><p>Options avancées en cours de développement...</p>',
-
-
-    service: '<h2>Service</h2><p>Liste des services réseau...</p>',
-
-
-    firewall: '<h2>Pare-Feu</h2><p>Règles de sécurité...</p>',
-
-
-    maintenance: '<h2>Maintenance</h2><p>Outils de maintenance système...</p>'
-
-
+// Définition des menus latéraux pour chaque option du menu horizontal
+const sideMenus = {
+    status: [
+        { id: 'device-info', text: 'Device info' },
+        { id: 'dsl', text: 'DSL' },
+        { id: 'lan-info', text: 'Lan Info' },
+        { id: 'voip', text: 'VoIP' },
+        { id: 'statistics', text: 'Statistiques' },
+        { id: 'system', text: 'Système' }
+    ],
+    config: [
+        { id: 'network-config', text: 'Configuration réseau' },
+        { id: 'wifi-config', text: 'Wi-Fi' },
+        { id: 'security-config', text: 'Sécurité' },
+        { id: 'backup-config', text: 'Sauvegarde' }
+    ],
+    advanced: [
+        { id: 'admin-settings', text: 'Paramètres admin' },
+        { id: 'network-advanced', text: 'Réseau avancé' },
+        { id: 'system-tools', text: 'Outils système' },
+        { id: 'diagnostics', text: 'Diagnostics' }
+    ],
+    service: [
+        { id: 'voip-service', text: 'Service VoIP' },
+        { id: 'iptv-service', text: 'Service IPTV' },
+        { id: 'cloud-service', text: 'Service Cloud' }
+    ],
+    firewall: [
+        { id: 'firewall-rules', text: 'Règles pare-feu' },
+        { id: 'port-forwarding', text: 'Redirection de port' },
+        { id: 'ip-filtering', text: 'Filtrage IP' }
+    ],
+    maintenance: [
+        { id: 'firmware-update', text: 'Mise à jour firmware' },
+        { id: 'system-reboot', text: 'Redémarrage' },
+        { id: 'factory-reset', text: 'Réinitialisation' }
+    ]
 };
 
+// Fonction pour changer le menu principal et mettre à jour le menu latéral
+function changeMainMenu(menu) {
+    // Mettre à jour le menu horizontal
+    document.querySelectorAll('.top-menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
 
+    // Générer le menu latéral correspondant
+    const sideNav = document.getElementById('sideNav');
+    sideNav.innerHTML = '';
 
+    sideMenus[menu].forEach(item => {
+        const menuItem = document.createElement('div');
+        menuItem.className = 'side-menu-item';
+        menuItem.innerHTML = `<i>•</i> ${item.text}`;
+        menuItem.onclick = function() {
+            showSubContent(item.id, menu);
+        };
 
+        // Activer le premier élément par défaut
+        if (sideMenus[menu].indexOf(item) === 0) {
+            menuItem.classList.add('active');
+            showSubContent(item.id, menu);
+        }
 
-document.querySelectorAll('.menu-btn').forEach(btn => {
-
-
-    btn.addEventListener('click', () => {
-
-
-        document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-
-
-        btn.classList.add('active');
-
-
-        const page = btn.getAttribute('data-page');
-
-
-        document.getElementById('page-content').innerHTML = pages[page];
-
-
+        sideNav.appendChild(menuItem);
     });
 
+    // Afficher le contenu principal correspondant
+    document.querySelectorAll('.content-section').forEach(section => {
+        section.classList.remove('active');
+    });
+    document.getElementById(`${menu}-content`).classList.add('active');
+}
 
-});
+// Fonction pour afficher le sous-contenu
+function showSubContent(subId, mainMenu) {
+    // Mettre à jour le menu latéral
+    document.querySelectorAll('.side-menu-item').forEach(item => {
+        item.classList.remove('active');
+    });
+    event.currentTarget.classList.add('active');
 
-window.addEventListener('load', handleMenu);
-window.addEventListener('resize', handleMenu);
-
-function handleMenu() {
-    const menu = document.querySelector('.menu');
-    if (window.innerWidth < 700) {
-
-        menu.innerHTML = "<img src='Black-Burger.png' alt='Humburger Menu' class='humburger-menu'>";
-        const humburgerMenu = menu.querySelector('.humburger-menu');
-
-        humburgerMenu.addEventListener('mouseover', () => {
-            humburgerMenu.src = 'White-Burger.png';
-        });
-
-        humburgerMenu.addEventListener('mouseout', () => {
-            humburgerMenu.src = 'Black-Burger.png';
-        });
-    } else {
-        menu.innerHTML =
-            `
-            <div class= "menu-btn active" data-page="status">Statut</div>
-            <div class="menu-btn" data-page="config">Configuration</div>
-            <div class="menu-btn" data-page="advanced">Avancé</div>
-            <div class="menu-btn" data-page="service">Service</div>
-            <div class="menu-btn" data-page="firewall">Pare-Feu</div>
-            <div class="menu-btn" data-page="maintenance">Maintenance</div>
-            `;
+    // Ici vous pourriez charger du contenu dynamique en fonction de mainMenu et subId
+    const contentDiv = document.getElementById(`${mainMenu}-subcontent`);
+    if (contentDiv) {
+        contentDiv.innerHTML = `<p>Contenu pour ${mainMenu} > ${subId}</p>`;
     }
 }
+
+// Fonction pour afficher/masquer le menu utilisateur
+function toggleUserMenu() {
+    const userMenu = document.getElementById('userMenu');
+    userMenu.classList.toggle('show');
+}
+
+// Fermer le menu utilisateur quand on clique ailleurs
+document.addEventListener('click', function(event) {
+    const userMenu = document.getElementById('userMenu');
+    const userMenuBtn = document.querySelector('.user-menu-btn');
+
+    if (!userMenu.contains(event.target) && !userMenuBtn.contains(event.target)) {
+        userMenu.classList.remove('show');
+    }
+});
+
+// Initialiser le menu au chargement
+document.addEventListener('DOMContentLoaded', function() {
+    // Activer le menu Statut par défaut
+    changeMainMenu('status');
+});

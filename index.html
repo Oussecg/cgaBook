@@ -1,56 +1,406 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>DSL Router Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CGA Book</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-    <div class="topnav">TT DSL Router</div>
-    <div class="menu">
-        <div class="menu-btn active" data-page="status">Statut</div>
-        <div class="menu-btn" data-page="config">Configuration</div>
-        <div class="menu-btn" data-page="advanced">Avancé</div>
-        <div class="menu-btn" data-page="service">Service</div>
-        <div class="menu-btn" data-page="firewall">Pare-Feu</div>
-        <div class="menu-btn" data-page="maintenance">Maintenance</div>
+<!-- En-tête avec logo et menu utilisateur -->
+<header class="top-header">
+    <div class="logo-container">
+        <img src="image/CGA-SELLAMI.png" alt="Logo" class="logo">
+        <div class="company-name">CGA Book</div>
+    </div>
+
+    <div class="user-menu-container">
+        <button class="user-menu-btn" onclick="toggleUserMenu()">
+            <span>Admin</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+            </svg>
+        </button>
+        <div class="user-menu" id="userMenu">
+            <div class="user-menu-item">Mon profil</div>
+            <div class="user-menu-item">Paramètres</div>
+            <div class="user-menu-item">Déconnexion</div>
+        </div>
     </div>
 </header>
-<main class="container">
-    <div class="sidebar">
-        <div>• Device info</div>
-        <div>› DSL</div>
-        <div>› Lan Info</div>
-        <div>› VoIP</div>
-        <div class="button-container"><button onclick="alert('Statistiques clicked')">Statistiques</button></div>
+
+<!-- Menu horizontal -->
+<nav class="top-nav">
+    <div class="top-menu">
+        <div class="top-menu-item active" onclick="changeMainMenu('status')">Statut</div>
+        <div class="top-menu-item" onclick="changeMainMenu('config')">Configuration</div>
+        <div class="top-menu-item" onclick="changeMainMenu('advanced')">Avancé</div>
+        <div class="top-menu-item" onclick="changeMainMenu('service')">Service</div>
+        <div class="top-menu-item" onclick="changeMainMenu('firewall')">Pare-Feu</div>
+        <div class="top-menu-item" onclick="changeMainMenu('maintenance')">Maintenance</div>
     </div>
-    <div class="content" id="page-content">
-        <div class="section">
-            <div class="section-header">Système</div>
-            <table>
-                <tr><td class="label">Alias</td><td>DSL Router VN020-F3W(TT)</td></tr>
-                <tr><td class="label">Durée d'activité</td><td>4j 21h 19m</td></tr>
-                <tr><td class="label">Date / heure</td><td>Sam. Juin 8 12:58:34 2025</td></tr>
-                <tr><td class="label">Firmware</td><td>V1.0.2_2021</td></tr>
-                <tr><td class="label">Date Firmware</td><td>28 Oct 2021</td></tr>
-                <tr><td class="label">Numéro de Série</td><td>31931003002699</td></tr>
-            </table>
-        </div>
-        <div class="section">
-            <div class="section-header">DSL</div>
-            <table>
-                <tr><td class="label">Modulation Active</td><td>ADSL2 AnnexA</td></tr>
-                <tr><td class="label">Débit montant</td><td>891 kbps</td></tr>
-                <tr><td class="label">Débit descendant</td><td>6696 kbps</td></tr>
-                <tr><td class="label">Max montant</td><td>1065 kbps</td></tr>
-                <tr><td class="label">Max descendant</td><td>9844 kbps</td></tr>
-                <tr><td class="label">Temps Sync</td><td>2j 4:45:5</td></tr>
-            </table>
-        </div>
-    </div>
-</main>
+</nav>
+
+<div class="main-container">
+    <!-- Menu latéral - Dynamique -->
+    <aside class="side-nav" id="sideNav">
+        <!-- Le contenu sera généré par JavaScript -->
+    </aside>
+
+    <!-- Zone de contenu principale -->
+    <main class="content-area">
+        <!-- Section Statut (active par défaut) -->
+        <section id="status-content" class="content-section active">
+            <h2>Statut du système</h2>
+            <div class="info-grid">
+                <div class="info-section">
+                    <h3>Device Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">DSL Router:</span>
+                        <span class="info-value">VN020-F3W(TT)</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Uptime:</span>
+                        <span class="info-value">4j 21h 19m</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Dernière connexion:</span>
+                        <span class="info-value">Sam. Juin 8 12:58:34 2025</span>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>DSL Info</h3>
+                    <div class="info-item">
+                        <span class="info-label">Version:</span>
+                        <span class="info-value">V1.0.2_2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Date:</span>
+                        <span class="info-value">28 Oct 2021</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Numéro de série:</span>
+                        <span class="info-value">31931003002699</span>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Autres sections de contenu -->
+        <section id="config-content" class="content-section">
+            <h2>Configuration</h2>
+            <div id="config-subcontent"></div>
+        </section>
+
+        <section id="advanced-content" class="content-section">
+            <h2>Paramètres avancés</h2>
+            <div id="advanced-subcontent"></div>
+        </section>
+
+        <section id="service-content" class="content-section">
+            <h2>Service</h2>
+            <div id="service-subcontent"></div>
+        </section>
+
+        <section id="firewall-content" class="content-section">
+            <h2>Pare-Feu</h2>
+            <div id="firewall-subcontent"></div>
+        </section>
+
+        <section id="maintenance-content" class="content-section">
+            <h2>Maintenance</h2>
+            <div id="maintenance-subcontent"></div>
+        </section>
+    </main>
+</div>
+
 <script src="script.js"></script>
 </body>
 </html>
