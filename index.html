@@ -8,38 +8,41 @@
 </head>
 <body>
 <!-- En-tête avec logo et menu utilisateur -->
-<header class="top-header">
-    <div class="logo-container">
-        <img src="image/CGA-SELLAMI.png" alt="Logo" class="logo">
-        <div class="company-name">CGA Book</div>
-    </div>
-
-    <div class="user-menu-container">
-        <button class="user-menu-btn" onclick="toggleUserMenu()">
-            <span>Admin</span>
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M6 9l6 6 6-6"/>
-            </svg>
-        </button>
-        <div class="user-menu" id="userMenu">
-            <div class="user-menu-item">Mon profil</div>
-            <div class="user-menu-item">Paramètres</div>
-            <div class="user-menu-item">Déconnexion</div>
+<header>
+    <div class="top-header">
+        <div class="logo-container">
+            <img src="image/CGA-SELLAMI.png" alt="Logo" class="logo">
+            <div class="company-name">CGA Book</div>
+        </div>
+        <div class="user-menu-container">
+            <button class="user-menu-btn" onclick="toggleUserMenu()">
+                <span>Admin</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M6 9l6 6 6-6"/>
+                </svg>
+            </button>
+            <div class="user-menu" id="userMenu">
+                <div class="user-menu-item">Mon profil</div>
+                <div class="user-menu-item">Paramètres</div>
+                <div class="user-menu-item">Déconnexion</div>
+            </div>
         </div>
     </div>
+
+    <!-- Menu horizontal -->
+    <nav class="top-nav">
+        <div class="top-menu">
+            <div class="top-menu-item active" onclick="changeMainMenu('status')">Statut</div>
+            <div class="top-menu-item" onclick="changeMainMenu('config')">Configuration</div>
+            <div class="top-menu-item" onclick="changeMainMenu('advanced')">Avancé</div>
+            <div class="top-menu-item" onclick="changeMainMenu('service')">Service</div>
+            <div class="top-menu-item" onclick="changeMainMenu('firewall')">Pare-Feu</div>
+            <div class="top-menu-item" onclick="changeMainMenu('maintenance')">Maintenance</div>
+        </div>
+    </nav>
 </header>
 
-<!-- Menu horizontal -->
-<nav class="top-nav">
-    <div class="top-menu">
-        <div class="top-menu-item active" onclick="changeMainMenu('status')">Statut</div>
-        <div class="top-menu-item" onclick="changeMainMenu('config')">Configuration</div>
-        <div class="top-menu-item" onclick="changeMainMenu('advanced')">Avancé</div>
-        <div class="top-menu-item" onclick="changeMainMenu('service')">Service</div>
-        <div class="top-menu-item" onclick="changeMainMenu('firewall')">Pare-Feu</div>
-        <div class="top-menu-item" onclick="changeMainMenu('maintenance')">Maintenance</div>
-    </div>
-</nav>
+
 
 <div class="main-container">
     <!-- Menu latéral - Dynamique -->
