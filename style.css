@@ -30,7 +30,10 @@ body {
 
 header {
     border-bottom: var(--text-color) 3px solid;
-    padding-bottom: 5px;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top:0;
 }
 
 /* En-tête fixe */
@@ -141,6 +144,7 @@ header {
 
 /* Contenu principal */
 .main-container {
+    margin-top: 100px;
     display: flex;
     flex: 1;
 }
